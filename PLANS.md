@@ -26,6 +26,8 @@
 
 ## RN 端适配计划
 
-### RN 端接入京东 JDReact SDK 调研
+- [x] RN 端接入京东 JDReact SDK 调研
+- [x] Taro 转 JDReact CLI 改造
+- [x] 产出 Demo，在内部业务使用（5月底）
+- [x] 组件/API 基于 Unimodules 对齐
 
-> 预计 2019.2 月底

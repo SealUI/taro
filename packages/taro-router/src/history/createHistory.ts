@@ -70,13 +70,15 @@ const tryToParseStore = (state: HistoryState) => {
  */
 const createHistorySerializer = (storeObj: HistoryState) => {
   let serialize = () => {
-    localStorage.setItem(defaultStoreKey, JSON.stringify(storeObj))
+    try {
+      localStorage.setItem(defaultStoreKey, JSON.stringify(storeObj))
+    } catch (e) {}
   }
   serialize()
   return serialize
 }
 
-const createHistory = (props: { basename?: string, mode: "hash" | "browser", firstPagePath: string, customRoutes: CustomRoutes }) => {
+const createHistory = (props: { basename?: string, mode: "hash" | "browser" | "multi", firstPagePath: string, customRoutes: CustomRoutes }) => {
   const transitionManager = createTransitionManager()
   const basename = props.basename ? stripTrailingSlash(addLeadingSlash(props.basename)) : ''
   const customRoutes = props.customRoutes || {}
@@ -108,7 +110,7 @@ const createHistory = (props: { basename?: string, mode: "hash" | "browser", fir
 
   const initialLocation = getDOMLocation(initState)
   let lastLocation = initialLocation
-  Taro._set$router(initialLocation)
+  Taro._$router = initialLocation
 
   let store = tryToParseStore(initState)
 
@@ -139,8 +141,8 @@ const createHistory = (props: { basename?: string, mode: "hash" | "browser", fir
       action: history.action
     }
 
-    Taro._set$router(history.location)
-    Taro['eventCenter'].trigger('routerChange', {...params})
+    Taro._$router = history.location
+    Taro.eventCenter.trigger('__taroRouterChange', {...params})
     transitionManager.notifyListeners({...params})
   }
 
@@ -217,7 +219,16 @@ const createHistory = (props: { basename?: string, mode: "hash" | "browser", fir
     listenerCount += delta
 
     if (listenerCount === 1) {
-      window.addEventListener(PopStateEvent, handlePopState)
+      const isSafari = /^((?!chrome).)*safari/i.test(navigator.userAgent)
+      if (isSafari) {
+        window.addEventListener('load', function() {
+          setTimeout(function() {
+            window.addEventListener(PopStateEvent, handlePopState)
+          }, 0);
+        });
+      } else {
+        window.addEventListener(PopStateEvent, handlePopState)
+      }
     } else if (listenerCount === 0) {
       window.removeEventListener(PopStateEvent, handlePopState)
     }

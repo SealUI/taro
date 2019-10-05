@@ -75,27 +75,27 @@ class App extends Component {
 
 Taro 中全局配置所包含的配置项及各端支持程度如下
 
-| 属性 | 类型 | 必填 | 描述	 | 微信小程序 | 百度小程序 | 字节跳动小程序 | 支付宝小程序 | H5 | RN
+| 属性 | 类型 | 必填 | 描述 | 微信小程序 | 百度小程序 | 字节跳动小程序 | 支付宝小程序 | H5 | RN
 | - | - | - | - | - | - | - | - | - | - |
-| pages | String Array | 是 | 页面路径列表 | ✔️ | ✔️|✔️|✔️|✔️|✔️|
-| window | Object | 否 | 全局的默认窗口表现 |具体支持程度见下方 |具体支持程度见下方|具体支持程度见下方|具体支持程度见下方|具体支持程度见下方|具体支持程度见下方|
-| tabBar | Object | 否 | 底部 tab 栏的表现 | 具体支持程度见下方 |具体支持程度见下方|具体支持程度见下方|具体支持程度见下方|具体支持程度见下方|具体支持程度见下方|
-| networkTimeout | Object | 否 | 网络超时时间 | ✔️ | ✘ | ✘ | ✘ | ✘ | ✘ |
-| debug | Boolean | 否 | 是否开启 debug 模式，默认关闭 | ✔️ | ✘ | ✔️ | ✘ | ✘ | ✘ |
-| functionalPages | Boolean | 否 | 是否启用插件功能页，默认关闭 | ✔️（基础库 2.1.0 以上） | ✘ | ✘ | ✘ | ✘ | ✘ |
-| subPackages | Object Array | 否 | 分包结构配置 | ✔️（基础库 1.7.3 以上） | ✔️ | ✘ | ✘ | ✔️ | ✔️ |
-| workers | String | 否 | Worker 代码放置的目录 | ✔️（基础库 1.9.90 以上） | ✘ | ✘ | ✘ | ✘ | ✘ |
-| requiredBackgroundModes | String Array | 否 | 需要在后台使用的能力，如「音乐播放」 | ✔️ | ✘ | ✘ | ✘ | ✘ | ✘ |
-| plugins | Object | 否 | 使用到的插件 | ✔️（基础库 1.9.6 以上） | ✘ | ✘ | ✘ | ✘ | ✘ |
-| preloadRule | Object | 否 | 分包预下载规则 | ✔️（基础库 2.3.0 以上） | ✔️ | ✘ | ✘ | ✘ | ✘ |
-| resizable | Boolean | 否 | iPad 小程序是否支持屏幕旋转，默认关闭 | ✔️（基础库 2.3.0 以上） | ✘ | ✘ | ✘ | ✘ | ✘ |
-| navigateToMiniProgramAppIdList | String Array | 否 | 需要跳转的小程序列表，详见 wx.navigateToMiniProgram | ✔️（基础库 2.4.0 以上） | ✘ | ✘ | ✘ | ✘ | ✘ |
-| usingComponents | Object | 否 | 全局自定义组件配置 | ✔️（开发者工具 1.02.1810190） | ✘ | ✘ | ✘ | ✘ | ✘ |
-| permission | Object | 否 | 小程序接口权限相关设置 | ✔️ 微信客户端 7.0.0 | ✘ | ✘ | ✘ | ✘ | ✘ |
+| [pages](#pages) | String Array | 是 | 页面路径列表 | ✔️ | ✔️|✔️|✔️|✔️|✔️|
+| [window](#window) | Object | 否 | 全局的默认窗口表现 |具体支持程度见下方 |具体支持程度见下方|具体支持程度见下方|具体支持程度见下方|具体支持程度见下方|具体支持程度见下方|
+| [tabBar](#tabbar) | Object | 否 | 底部 tab 栏的表现 | 具体支持程度见下方 |具体支持程度见下方|具体支持程度见下方|具体支持程度见下方|具体支持程度见下方|具体支持程度见下方|
+| [networkTimeout](#networktimeout) | Object | 否 | 网络超时时间 | ✔️ | ✘ | ✘ | ✘ | ✘ | ✘ |
+| [debug](#debug) | Boolean | 否 | 是否开启 debug 模式，默认关闭 | ✔️ | ✘ | ✔️ | ✘ | ✘ | ✘ |
+| [functionalPages](#functionalpages) | Boolean | 否 | 是否启用插件功能页，默认关闭 | ✔️（基础库 2.1.0 以上） | ✘ | ✘ | ✘ | ✘ | ✘ |
+| [subPackages](#subpackages) | Object Array | 否 | 分包结构配置 | ✔️（基础库 1.7.3 以上） | ✔️ | ✘ | ✘ | ✔️ | ✔️ |
+| [workers](#workers) | String | 否 | Worker 代码放置的目录 | ✔️（基础库 1.9.90 以上） | ✘ | ✘ | ✘ | ✘ | ✘ |
+| [requiredBackgroundModes](#requiredbackgroundmodes) | String Array | 否 | 需要在后台使用的能力，如「音乐播放」 | ✔️ | ✘ | ✘ | ✘ | ✘ | ✘ |
+| [plugins](#plugins) | Object | 否 | 使用到的插件 | ✔️（基础库 1.9.6 以上） | ✘ | ✘ | ✘ | ✘ | ✘ |
+| [preloadRule](#preloadrule) | Object | 否 | 分包预下载规则 | ✔️（基础库 2.3.0 以上） | ✔️ | ✘ | ✘ | ✘ | ✘ |
+| [resizable](#resizable) | Boolean | 否 | iPad 小程序是否支持屏幕旋转，默认关闭 | ✔️（基础库 2.3.0 以上） | ✘ | ✘ | ✘ | ✘ | ✘ |
+| [navigateToMiniProgramAppIdList](#navigatetominiprogramappidlist) | String Array | 否 | 需要跳转的小程序列表，详见 wx.navigateToMiniProgram | ✔️（基础库 2.4.0 以上） | ✘ | ✘ | ✘ | ✘ | ✘ |
+| [usingComponents](#usingcomponents) | Object | 否 | 全局自定义组件配置 | ✔️（开发者工具 1.02.1810190） | ✘ | ✘ | ✘ | ✘ | ✘ |
+| [permission](#permission) | Object | 否 | 小程序接口权限相关设置 | ✔️ 微信客户端 7.0.0 | ✘ | ✘ | ✘ | ✘ | ✘ |
 
 #### pages
 
-用于指定小程序由哪些页面组成，每一项都对应一个页面的 `路径+文件名` 信息。文件名不需要写文件后缀，框架会自动去寻找对应位置的文件进行处理。
+用于指定小程序由哪些页面组成，每一项都对应一个页面的 `路径 + 文件名` 信息。文件名不需要写文件后缀，框架会自动去寻找对应位置的文件进行处理。
 
 **数组的第一项代表小程序的初始页面（首页）。小程序中新增/减少页面，都需要对 pages 数组进行修改。**
 
@@ -134,7 +134,7 @@ class App extends Component {
 
 用于设置小程序的状态栏、导航条、标题、窗口背景色，其配置项如下。
 
-| 属性 | 类型 | 默认值 | 描述	 |
+| 属性 | 类型 | 默认值 | 描述 |
 | - | - | - | - |
 | navigationBarBackgroundColor | HexColor（十六进制颜色值） | #000000 | 导航栏背景颜色，如 #000000 |
 | navigationBarTextStyle | String | white | 导航栏标题颜色，仅支持 black / white |
@@ -197,12 +197,12 @@ class App extends Component {
 
 其配置项如下
 
-| 属性 | 类型 |  必填 | 默认值 | 描述	 |
+| 属性 | 类型 |  必填 | 默认值 | 描述 |
 | - | - | - | - | - |
 | color | HexColor（十六进制颜色值） | 是 |  | tab 上的文字默认颜色，仅支持十六进制颜色 |
 | selectedColor | HexColor（十六进制颜色值） | 是 |  | tab 上的文字选中时的颜色，仅支持十六进制颜色 |
 | backgroundColor | HexColor（十六进制颜色值） | 是 |  | tab 的背景色，仅支持十六进制颜色 |
-| borderStyle | String | 是 | black | tabbar上边框的颜色， 仅支持 black / white |
+| borderStyle | String | 是 | black | tabbar 上边框的颜色， 仅支持 black / white |
 | list | Array | 是 |  | tab 的列表，详见 list 属性说明，最少 2 个、最多 5 个 tab |
 | position | String | 否 | bottom | tabBar的位置，仅支持 bottom / top |
 | custom | Boolean | 否 | false | 自定义 tabBar |
@@ -225,8 +225,8 @@ class App extends Component {
 | - | - | - | - |
 | pagePath | String | 是 |  页面路径，必须在 pages 中先定义 |
 | text | String | 是 |  tab 上按钮文字 |
-| iconPath | String | 否 |  图片路径，icon 大小限制为40kb，建议尺寸为 81px * 81px，不支持网络图片。<br/>当 postion 为 top 时，不显示 icon。 |
-| selectedIconPath | String | 否 |  选中时的图片路径，icon 大小限制为40kb，建议尺寸为 81px * 81px，不支持网络图片。<br/>当 postion 为 top 时，不显示 icon。 |
+| iconPath | String | 否 |  图片路径，icon 大小限制为40kb，建议尺寸为 81px * 81px，不支持网络图片。<br/>当 position 为 top 时，不显示 icon。 |
+| selectedIconPath | String | 否 |  选中时的图片路径，icon 大小限制为40kb，建议尺寸为 81px * 81px，不支持网络图片。<br/>当 position 为 top 时，不显示 icon。 |
 
 #### networkTimeout
 
@@ -234,16 +234,16 @@ class App extends Component {
 
 各类网络请求的超时时间，单位均为毫秒。
 
-| 属性 | 类型 |  必填 | 默认值 | 描述	 |
+| 属性 | 类型 |  必填 | 默认值 | 描述 |
 | - | - | - | - | - |
-| request | Number | 否 | 60000 | Taro.request 的超时时间，单位：毫秒 |
-| connectSocket | Number | 否 | 60000 | Taro.connectSocket 的超时时间，单位：毫秒 |
-| uploadFile | Number | 否 | 60000 | Taro.uploadFile 的超时时间，单位：毫秒 |
-| downloadFile | Number | 否 | 60000 | Taro.downloadFile 的超时时间，单位：毫秒 |
+| request | Number | 否 | 60000 | [Taro.request](./native-api.md#发起请求) 的超时时间，单位：毫秒 |
+| connectSocket | Number | 否 | 60000 | [Taro.connectSocket](./native-api.md#websocket) 的超时时间，单位：毫秒 |
+| uploadFile | Number | 否 | 60000 | [Taro.uploadFile](./native-api.md#上传-下载) 的超时时间，单位：毫秒 |
+| downloadFile | Number | 否 | 60000 | [Taro.downloadFile](./native-api.md#上传-下载) 的超时时间，单位：毫秒 |
 
 #### debug
 
-可以在开发者工具中开启 debug 模式，在开发者工具的控制台面板，调试信息以 info 的形式给出，其信息有Page的注册，页面路由，数据更新，事件触发等。可以帮助开发者快速定位一些常见的问题。
+可以在开发者工具中开启 debug 模式，在开发者工具的控制台面板，调试信息以 info 的形式给出，其信息有 Page 的注册，页面路由，数据更新，事件触发等。可以帮助开发者快速定位一些常见的问题。
 
 #### functionalPages
 
@@ -327,15 +327,15 @@ class App extends Component {
 
 微信小程序接口权限相关设置。字段类型为 Object，结构为：
 
-| 属性 | 类型 |  必填 | 默认值 | 描述	 |
+| 属性 | 类型 |  必填 | 默认值 | 描述 |
 | - | - | - | - | - |
 | scope.userLocation | PermissionObject | 否 |  | 位置相关权限声明 |
 
 PermissionObject 结构
 
-| 属性 | 类型 |  必填 | 默认值 | 描述	 |
+| 属性 | 类型 |  必填 | 默认值 | 描述 |
 | - | - | - | - | - |
-| desc | string | 是 |  | 小程序获取权限时展示的接口用途说明。最长30个字符 |
+| desc | string | 是 |  | 小程序获取权限时展示的接口用途说明。最长 30 个字符 |
 
 ```jsx
 class App extends Component {
@@ -355,7 +355,7 @@ class App extends Component {
 }
 ```
 
-![](http://ww1.sinaimg.cn/large/49320207gy1g0uiageahij20gf08dwer.jpg)
+![image](http://ww1.sinaimg.cn/large/49320207gy1g0uiageahij20gf08dwer.jpg)
 
 ### 生命周期
 
@@ -386,7 +386,7 @@ class App extends Component {
 | 属性 | 类型 |  说明 | 微信小程序 | 百度小程序 | 字节跳动小程序 | 支付宝小程序 |
 | - | - | - | - | - | - | - |
 | appId | string | 来源小程序，或者公众号（微信中） | ✔️| ✔️| ✔️| ✔️|
-| extraData | Object	| 来源小程序传过来的数据，微信和百度小程序在scene=1037或1038时支持 | ✔️| ✔️| ✔️| ✔️|
+| extraData | Object | 来源小程序传过来的数据，微信和百度小程序在scene=1037或1038时支持 | ✔️| ✔️| ✔️| ✔️|
 | sourceServiceId | string | 来源插件，当处于插件运行模式时可见 | ✘ | ✘ | ✘| ✔️（基础库版本 1.11.0）|
 
 #### componentDidMount()
@@ -462,8 +462,7 @@ Taro 项目的页面一般都放在 `src` 中的 `pages` 目录下，如果页�
 页面创建好后如果需要渲染展示，则需要在项目入口文件 `app.js` 中 `config` 的 `pages` 数组中进行指定，例如上面提到的 `index` 页面，需要如下进行配置，页面配置需要指定到页面具体的 `js` 文件，可以不带 `.js` 后缀
 
 ```jsx
-
-...
+// ...
 class App extends Component {
   // 项目配置
   config = {
@@ -471,9 +470,8 @@ class App extends Component {
       'pages/index/index'
     ]
   }
-  ...
+  // ...
 }
-
 ```
 
 ### 代码示例
@@ -481,7 +479,6 @@ class App extends Component {
 一个普通的页面文件示例如下
 
 ```jsx
-
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import './index.scss'
@@ -509,7 +506,6 @@ export default class Index extends Component {
     )
   }
 }
-
 ```
 
 ### 页面配置
@@ -544,7 +540,7 @@ export default class Index extends Component {
 
 #### 配置项列表
 
-| 属性 | 类型 | 默认值 | 描述	 |
+| 属性 | 类型 | 默认值 | 描述 |
 | - | - | - | - |
 | navigationBarBackgroundColor | HexColor（十六进制颜色值） | #000000 | 导航栏背景颜色，如 #000000 |
 | navigationBarTextStyle | String | white | 导航栏标题颜色，仅支持 black / white |
@@ -568,15 +564,15 @@ export default class Index extends Component {
 | navigationBarBackgroundColor | ✔️ | ✔️|✔️|✔️|✔️|✔️|
 | navigationBarTextStyle | ✔️ | ✔️|✔️|  ✘ |✔️|✔️|
 | navigationBarTitleText | ✔️ | ✔️|✔️| ✔️ |✔️|✔️|
-| navigationStyle | ✔️（微信客户端 6.6.0） | ✔️（百度 App 版本 11.1.0）|✔️|  ✘ | ✘| ✘|
-| backgroundColor | ✔️ | ✔️|✔️| ✘ |✘|✘|
-| backgroundTextStyle | ✔️ | ✔️|✔️| ✘ |✘|✘|
+| navigationStyle | ✔️（微信客户端 6.6.0） | ✔️（百度 App 版本 11.1.0）|✔️|  ✘ | ✘| ✔️|
+| backgroundColor | ✔️ | ✔️|✔️| ✘ |✘|✔️|
+| backgroundTextStyle | ✔️ | ✔️|✔️| ✘ |✘|✔️|
 | backgroundColorTop |✔️（微信客户端 6.5.16） | ✘|✔️| ✘ |✘|✘|
 | backgroundColorBottom | ✔️（微信客户端 6.5.16） | ✘|✔️| ✘ |✘|✘|
 | enablePullDownRefresh | ✔️ | ✔️|✔️| ✔️ |✘|✘|
 | onReachBottomDistance | ✔️ | ✔️|✔️| ✘ |✘|✘|
 |pageOrientation | ✔️2.4.0 (auto) / 2.5.0 (landscape) | ✘|✘| ✘ |✘|✘|
-| disableScroll | ✔️ | ✘|✘| ✘ |✘|✘|
+| disableScroll | ✔️ | ✘|✘| ✘ |✘|✔️|
 | disableSwipeBack | ✔️ | ✘|✘| ✘ |✘|✘|
 | usingComponents | ✔️ | ✔️|✔️| ✔️ |✘|✘|
 
@@ -594,7 +590,7 @@ export default class Index extends Component {
 
 #### componentWillMount()
 
-页面加载时触发，一个页面只会调用一次，此时页面 Dom 尚未准备好，还不能和视图层进行交互
+页面加载时触发，一个页面只会调用一次，此时页面 DOM 尚未准备好，还不能和视图层进行交互
 
 #### componentDidMount()
 
@@ -616,7 +612,7 @@ export default class Index extends Component {
 
 页面卸载时触发，如 redirectTo 或 navigateBack 到其他页面时
 
-#### componentDiShow()
+#### componentDidShow()
 
 页面显示/切入前台时触发
 
@@ -629,6 +625,141 @@ export default class Index extends Component {
 ### 页面事件处理函数
 
 在小程序中，页面还有在一些专属的事件处理函数，如下
+
+#### onPullDownRefresh()
+
+监听用户下拉刷新事件
+
+- 需要在全局配置的 window 选项中或页面配置中开启 enablePullDownRefresh
+- 可以通过 [Taro.startPullDownRefresh](./native-api.md#tarostartpulldownrefreshobject) 触发下拉刷新，调用后触发下拉刷新动画，效果与用户手动下拉刷新一致。
+- 当处理完数据刷新后，[Taro.stopPullDownRefresh](./native-api.md#tarostoppulldownrefresh) 可以停止当前页面的下拉刷新
+
+#### onReachBottom()
+
+监听用户上拉触底事件
+
+- 可以在全局配置的 window 选项中或页面配置中设置触发距离 onReachBottomDistance
+- 在触发距离内滑动期间，本事件只会被触发一次
+
+#### onPageScroll(Object)
+
+监听用户滑动页面事件
+
+Object 参数说明：
+
+| 参数 | 类型 | 说明 |
+| - | - | - |
+| scrollTop | Number | 页面在垂直方向已滚动的距离（单位px）|
+
+**注意：请只在需要的时候才在 page 中定义此方法，不要定义空方法。以减少不必要的事件派发对渲染层-逻辑层通信的影响。注意：请避免在 onPageScroll 中过于频繁的执行 this.setState() 等引起逻辑层-渲染层通信的操作。尤其是每次传输大量数据，会影响通信耗时。**
+
+#### onShareAppMessage(Object)
+
+监听用户点击页面内转发按钮（Button 组件 openType='share'）或右上角菜单“转发”按钮的行为，并自定义转发内容。
+
+注意：只有定义了此事件处理函数，右上角菜单才会显示“转发”按钮
+
+Object 参数说明：
+
+| 参数 | 类型 | 说明 |
+| - | - | - |
+| from | String | 转发事件来源。<br />button：页面内转发按钮；<br />menu：右上角转发菜单 |
+| target | Object | 如果 `from` 值是 `button`，则 `target` 是触发这次转发事件的 `button`，否则为 `undefined` |
+| webViewUrl | String | 页面中包含 <WebView> 组件时，返回当前 <WebView> 的url |
+
+此事件需要 return 一个 Object，用于自定义转发内容，返回内容如下：
+
+自定义转发内容
+
+| 字段 | 类型 | 说明 |
+| - | - | - |
+| title | 转发标题 | 当前小程序名称 |
+| path | 转发路径 | 当前页面 path ，必须是以 / 开头的完整路径 |
+| imageUrl | 自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径。支持 PNG 及 JPG 。显示图片长宽比是 5:4 | 使用默认截图 |
+
+示例代码
+
+```jsx
+export default class Index extends Component {
+  config = {
+    navigationBarTitleText: '首页'
+  }
+
+  onShareAppMessage (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: '自定义转发标题',
+      path: '/page/user?id=123'
+    }
+  }
+
+  render () {
+    return (
+      <View className='index'>
+        <Text>1</Text>
+      </View>
+    )
+  }
+}
+```
+
+#### onResize(object)
+
+> 只有微信小程序支持<br />
+> 基础库 2.4.0 开始支持
+
+小程序屏幕旋转时触发。详见 [响应显示区域变化](https://developers.weixin.qq.com/miniprogram/dev/framework/view/resizable.html#%E5%9C%A8%E6%89%8B%E6%9C%BA%E4%B8%8A%E5%90%AF%E7%94%A8%E5%B1%8F%E5%B9%95%E6%97%8B%E8%BD%AC%E6%94%AF%E6%8C%81)
+
+#### onTabItemTap(Object)
+
+> 微信小程序中，基础库 1.9.0 开始支持
+
+点击 tab 时触发
+
+Object 参数说明：
+
+| 参数 | 类型 | 说明 |
+| - | - | - |
+| index | String | 被点击 tabItem 的序号，从 0 开始 |
+| pagePath | String | 被点击 tabItem 的页面路径 |
+| text | String | 被点击 tabItem 的按钮文字 |
+
+#### componentWillPreload()
+
+> 目前只有微信小程序支持
+
+[预加载](best-practice.md#预加载)钩子
+
+#### onTitleClick()
+
+> 只有支付宝小程序支持，基础库 1.3.0 开始支持
+
+点击标题触发
+
+#### onOptionMenuClick()
+
+> 只有支付宝小程序支持，基础库 1.3.0 开始支持
+
+点击导航栏额外图标触发
+
+#### onPopMenuClick()
+
+> 只有支付宝小程序支持，基础库 1.11.0 开始支持
+
+暂无说明
+
+#### onPullIntercept()
+
+> 只有支付宝小程序支持，基础库 1.3.0 开始支持
+
+下拉截断时触发
+
+> H5 暂时没有同步实现 `onReachBottom` 、 `onPageScroll` 这两个事件函数，可以通过给 window 绑定 scroll 事件来进行模拟，而 `onPullDownRefresh` 下拉刷新则暂时只能用 `ScrollView` 组件来代替了。
+
+页面事件函数各端支持程度如下
 
 | 方法 | 作用 | 微信小程序 | 百度小程序 | 字节跳动小程序 | 支付宝小程序 | H5 | RN |
 | - | - | - | - | - | - | - | - |
@@ -705,7 +836,7 @@ Taro 的组件同样是继承自 `Component` 组件基类，与页面类似，�
 
 #### componentWillMount()
 
-组件加载时触发，一个组件只会调用一次，此时组件 Dom 尚未准备好，还不能和视图层进行交互
+组件加载时触发，一个组件只会调用一次，此时组件 DOM 尚未准备好，还不能和视图层进行交互
 
 #### componentDidMount()
 

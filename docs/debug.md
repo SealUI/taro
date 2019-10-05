@@ -7,9 +7,9 @@ title: Debug 指南
 当你在 Taro 进行 debug 时，请先确认一下流程均已完成：
 
 1. ESLint 已经开启并且没有报错；
-2. 大致过了一遍包括[最佳实践](https://nervjs.github.io/taro/docs/best-practice.html) 在内的文档，文档里没有对应问题的描述;
+2. 大致过了一遍包括[最佳实践](https://nervjs.github.io/taro/docs/best-practice.html)在内的文档，文档里没有对应问题的描述；
 3. 搜索过相关的 issue，issue 没有提到相关解决方案；
-4. 按项目使用的 Taro 版本往上查看 [changelog](https://github.com/NervJS/taro/blob/master/CHANGELOG.md)，changelog 中没有意见修复相关问题的提交
+4. 按项目使用的 Taro 版本往上查看 [changelog](https://github.com/NervJS/taro/blob/master/CHANGELOG.md)，changelog 中没有意见修复相关问题的提交；
 
 很多时候只要你把以上四个流程都走一遍，遇到的问题就会迎刃而解。而作为一个多端框架，Taro 有非常多的模块，当出现问题时 Taro 也需要分模块进行调试，接下来我们会举一些已经解决了的 bug 样例，阐述我们调试 bug 的思路：
 
@@ -19,18 +19,19 @@ title: Debug 指南
 
 由于 [commander.js](https://github.com/tj/commander.js) 的[缘故](https://github.com/tj/commander.js/issues/786)，在 Mac 下使用 yarn 安装 CLI，偶尔会出现执行命令报错的情况
 
-```
+```bash
 taro-init(1) does not exist, try --help
 ```
+
 这时候，你可以选择使用 npm 或者 cnpm 重新安装 CLI，或者将 CLI [添加到环境变量中来解决](https://github.com/NervJS/taro/issues/2034)。
 
-### 项目依赖一致安装不下来
+### 项目依赖一直安装不下来
 
 由于 Taro 的 `@tarojs/webpack-runner` 包默认依赖了 `node-sass`，倒是有些时候依赖一直安装不了，在此，建议直接使用淘宝的 [cnpm](https://npm.taobao.org/) 进行安装依赖，或者尝试一下[这个包](https://github.com/gucong3000/mirror-config-china)
 
 ## 小程序
 
-### 没有任何报错，但显示的结果不如预期
+### 没有任何报错，但显示的结果不如预期
 
 #### 被 diff 逻辑过滤
 
@@ -91,7 +92,7 @@ rooms.map((room, index) => (
 </view>
 ```
 
-观察编译前后文件，我们可以发现：由于第二个循环没有指定 `index` 变量名，taro 编译的循环也没有指定 `index` 变量名。但问题在于微信小程序当不指定 `index` 时，会隐式地注入一个名为 `index` 的变量名作为 `index`。因此这段代码在第二个循环中访问 `index`，实际上是当前循环的 `index`，而不是上级循环的 `index`。
+观察编译前后文件，我们可以发现：由于第二个循环没有指定 `index` 变量名，Taro 编译的循环也没有指定 `index` 变量名。但问题在于微信小程序当不指定 `index` 时，会隐式地注入一个名为 `index` 的变量名作为 `index`。因此这段代码在第二个循环中访问 `index`，实际上是当前循环的 `index`，而不是上级循环的 `index`。
 
 当我们了解到问题所在之后，解决问题也很容易，只要在第二个循环显式地暴露循环的第二个变量即可，源代码可以修改为：
 
@@ -157,7 +158,7 @@ render () {
 }
 ```
 
-大部分运行时错误都可以通过小程序内置的 Chrome Devtools 找到报错的缘由，如果当前调用栈没有找到问题所在，可以往上逐层地去调试各个调用栈。Chrome DevTools 相关文档请查看：[Chrome 开发者工具](https://developers.google.com/web/tools/chrome-devtools/)
+大部分运行时错误都可以通过小程序内置的 Chrome DevTools 找到报错的缘由，如果当前调用栈没有找到问题所在，可以往上逐层地去调试各个调用栈。Chrome DevTools 相关文档请查看：[Chrome 开发者工具](https://developers.google.com/web/tools/chrome-devtools/)
 
 ### 生命周期/路由/setState 出错
 
@@ -171,6 +172,36 @@ render () {
 4. 修改编译后文件 `createComponent` 函数创建的对象
 
 虽然使用小程序原生方法也能做很多同样的事，但当 Taro 运行时框架出现问题时，我们还是强烈建议开发者向 Taro 官方 [提交 issue](https://github.com/NervJS/taro/issues/new/choose)，有能力的开发者朋友也可以 [提交 PR](https://github.com/NervJS/taro/pulls)。一方面使用 Taro API 实现可以帮助你抹平多端差异，另一方面寻找甚至是修复 bug 也有助于加强你对 Taro 和小程序底层的理解。
+
+### 微信小程序表单组件问题
+
+微信小程序表单组件不是受控组件，当用户操作表单时视图会**立即改变**，但表单的 value 值还是没有变化。
+
+如果在表单 `onChange`、`onInput` 此类值改变回调中 setState value 为用户操作改变表单之前的值时，Taro 的 diff 逻辑会判断 setState 的 value 值和当前 data.value 一致，则**放弃 setData**，导致视图没有正确更新。
+
+解决办法：
+
+Input 组件可以通过在回调中 return 需要改变的值来更新视图。详见 [#2642](https://github.com/NervJS/taro/issues/2642)
+
+小程序 Input 组件文档截图：
+
+![inputdoc](https://user-images.githubusercontent.com/11807297/55405139-fcb44b00-558b-11e9-845f-afbc73863b48.png)
+
+其它组件需要立即 `setState({ value: e.detail.value })` 以立即更新同步 data.value 值，然后再 setState 真正需要表单改变的值。详见 [#1981](https://github.com/NervJS/taro/issues/1981)、[#2257](https://github.com/NervJS/taro/issues/2257)
+
+### API 问题
+
+#### API 调用结果不符合预期
+
+Taro 小程序端的 API 只是对小程序原生 API 简单地进行了 promise 化，并没有做什么额外操作。因此开发者在遇到这种情况时可以试试直接使用小程序 API，如微信小程序中直接使用 `wx.xxx`。如果有同样的报错，证明是小程序方面的问题。否则则可能是 Taro 的问题，可以给我们提相关 issue。
+
+#### API 调用报错
+
+假设开发者在调用某个 API `Taro.xxx`，出现类似以下报错：
+
+![image](https://user-images.githubusercontent.com/11807297/59170450-45324b00-8b71-11e9-8e25-1169b425040c.png)
+
+证明 Taro 还没兼容此 API，比如一些小程序平台最新更新的 API。这时可以给我们提 issue 要求添加，或者修改此文件 [native-apis.js](https://github.com/NervJS/taro/blob/master/packages/taro/src/native-apis.js) 后，给我们提 PR。
 
 ## H5
 
@@ -231,6 +262,19 @@ const Block = (props) => <div>{props.children}</div>
 当你遇到了相关问题时，我们准备了一个快速起步的沙盒工具，你可以直接在这个工具里编辑、调试、复现问题：
 
 [![Edit Taro sandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/50nzv622z4?fontsize=14)
+## 组件
+
+### jsEnginScriptError
+
+`Component is not found in path "xxx/xxx/xxx"` 解决办法：
+
+1、检查有没有编译报错
+
+2、检查编译后的文件是否正确
+
+3、步骤 1 和 步骤 2 如果检查没有问题，重启开发者工具，否则跳到步骤 4 
+
+4、提供具体编译报错信息与编译后文件信息的截图
 
 ## 其它资源
 

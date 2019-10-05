@@ -1,15 +1,15 @@
-import Taro, { Component } from '@tarojs/taro-h5';
-import Nerv from 'nervjs';
-import invariant from 'invariant';
-import toPairs from 'lodash/toPairs';
-import assign from 'lodash/assign';
+import Taro from '@tarojs/taro-h5'
+import invariant from 'invariant'
+import assign from 'lodash/assign'
+import toPairs from 'lodash/toPairs'
+import Nerv from 'nervjs'
 
-import { createNavigateBack, createNavigateTo, createRedirectTo } from '../apis';
-import Route from './route';
-import * as Types from '../utils/types';
+import * as Types from '../utils/types'
+import Route from './route'
 
 interface Props {
   history: Types.History;
+  mode: 'multi' | 'hash' | 'browser';
   routes: Types.RouteObj[];
   children?: any[];
   customRoutes: Types.CustomRoutes;
@@ -23,7 +23,7 @@ interface State {
 type OriginalRoute = string;
 type MappedRoute = string;
 
-class Router extends Component<Props, State> {
+class Router extends Taro.Component<Props, State> {
   unlisten: () => void;
   lastLocation: Types.Location;
   currentPages: any[] = [];
@@ -36,9 +36,6 @@ class Router extends Component<Props, State> {
 
   mountApis () {
     // 挂载Apis
-    Taro.navigateTo = createNavigateTo(this.props.history)
-    Taro.navigateBack = createNavigateBack(this.props.history)
-    Taro.redirectTo = createRedirectTo(this.props.history)
     Taro.getCurrentPages = () => {
       return this.currentPages
     }
@@ -48,25 +45,30 @@ class Router extends Component<Props, State> {
     // 找出匹配的路由组件
     const originalPathname = location.path;
     let pathname = originalPathname
-    const foundRoute = this.customRoutes.find(([originalRoute, mappedRoute]) => {
-      return originalPathname === mappedRoute
-    })
-    if (foundRoute) {
-      pathname = foundRoute[0]
+
+    if (this.props.mode === 'multi') {
+      return this.props.routes[0]
+    } else {
+      const foundRoute = this.customRoutes.filter(([originalRoute, mappedRoute]) => {
+        return originalPathname === mappedRoute
+      })
+      if (foundRoute.length) {
+        pathname = foundRoute[0][0]
+      }
+      const matchedRoute = this.props.routes.filter(({path, isIndex}) => {
+        if (isIndex && pathname === '/') return true;
+        return pathname === path;
+      })
+  
+      invariant(matchedRoute[0], `Can not find proper registered route for '${pathname}'`)
+      return matchedRoute[0]!
     }
-    const matchedRoute = this.props.routes.find(({path, isIndex}) => {
-      if (isIndex && pathname === '/') return true;
-      return pathname === path;
-    })
-
-    invariant(matchedRoute, `Can not find proper registered route for '${pathname}'`)
-
-    return matchedRoute!
   }
 
   push (toLocation: Types.Location) {
     const routeStack: Types.RouteObj[] = [...this.state.routeStack]
     const matchedRoute = this.computeMatch(toLocation)
+    routeStack.forEach(v => { v.isRedirect = false })
     routeStack.push(assign({}, matchedRoute, {
       key: toLocation.state.key,
       isRedirect: false
@@ -108,8 +110,8 @@ class Router extends Component<Props, State> {
     this.currentPages[k] = comp
   }
 
-  componentWillMount () {
-    const { history, customRoutes } = this.props
+  componentDidMount () {
+    const { history, customRoutes, mode } = this.props
 
     this.mountApis()
     this.customRoutes = toPairs(customRoutes)
@@ -134,18 +136,27 @@ class Router extends Component<Props, State> {
     })
     this.lastLocation = history.location
     this.push(this.lastLocation)
+    if (mode === 'multi') {
+      this.unlisten()
+    }
+  }
+
+  componentWillUpdate () {
+    this.currentPages.length = this.state.routeStack.length
   }
 
   componentWillUnmount () {
+    const { mode } = this.props
+    if (mode === 'multi') return
     this.unlisten()
   }
 
   render () {
-    const router = this
-    const currentLocation = Taro.getRouter()
-    router.currentPages.length = this.state.routeStack.length
+    const currentLocation = Taro._$router
     return (
-      <div className="taro_router">
+      <div
+        className="taro_router"
+        style={"height: 100%"}>
         {this.state.routeStack.map(({ path, componentLoader, isIndex, key, isRedirect }, k) => {
           return (
             <Route
@@ -164,6 +175,5 @@ class Router extends Component<Props, State> {
     )
   }
 }
-
 
 export default Router

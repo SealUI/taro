@@ -19,6 +19,7 @@ const onAndSyncApis = {
   onHCEMessage: true,
   onGetWifiList: true,
   onWifiConnected: true,
+  onDeviceMotionChange: true,
   setStorageSync: true,
   getStorageSync: true,
   getStorageInfoSync: true,
@@ -28,6 +29,7 @@ const onAndSyncApis = {
   getExtConfigSync: true,
   getLogManager: true,
   onMemoryWarning: true,
+  reportMonitor: true,
   reportAnalytics: true,
   navigateToSmartGameProgram: true,
   // 文件
@@ -41,7 +43,11 @@ const onAndSyncApis = {
   offPageNotFound: true,
   offError: true,
   offAppShow: true,
-  offAppHide: true
+  offAppHide: true,
+  onAudioInterruptionEnd: true,
+  onAudioInterruptionBegin: true,
+  onLocationChange: true,
+  offLocationChange: true
 }
 const noPromiseApis = {
   // 媒体
@@ -76,12 +82,16 @@ const noPromiseApis = {
   hideNavigationBarLoading: true,
   createAnimation: true,
   createSelectorQuery: true,
+  createOffscreenCanvas: true,
   createCanvasContext: true,
-  createContext: true,
+  // createContext: true,
   drawCanvas: true,
   hideKeyboard: true,
   stopPullDownRefresh: true,
   createIntersectionObserver: true,
+
+  // 菜单
+  getMenuButtonBoundingClientRect: true,
 
   onWindowResize: true,
   offWindowResize: true,
@@ -92,7 +102,11 @@ const noPromiseApis = {
 
   getAccountInfoSync: true,
   getUpdateManager: true,
-  createWorker: true
+  createWorker: true,
+
+  // 广告
+  createRewardedVideoAd: true,
+  createInterstitialAd: true
 }
 const otherApis = {
   // 网络
@@ -143,6 +157,9 @@ const otherApis = {
   reLaunch: true,
 
   // 位置
+  startLocationUpdate: true,
+  startLocationUpdateBackground: true,
+  stopLocationUpdate: true,
   getLocation: true,
   chooseLocation: true,
   openLocation: true,
@@ -187,6 +204,8 @@ const otherApis = {
   getWifiList: true,
   setWifiList: true,
   getConnectedWifi: true,
+  startDeviceMotionListening: true,
+  stopDeviceMotionListening: true,
 
   // 界面
   pageScrollTo: true,
@@ -245,6 +264,8 @@ const otherApis = {
   checkIsSoterEnrolledInDevice: true,
 
   setEnableDebug: true,
+  // 支付宝小程序API
+  getOpenUserInfo: true,
 
   // 百度小程序专有 API
   // 百度小程序 AI 相关
@@ -262,6 +283,7 @@ const otherApis = {
   logoClassify: true,
   animalClassify: true,
   plantClassify: true,
+  setPageInfo: true,
 
   // 用户信息
   getSwanId: true,

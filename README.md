@@ -20,12 +20,17 @@
 
 掘金小册：[Taro 多端开发实现原理与实战](https://juejin.im/book/5b73a131f265da28065fb1cd?referrer=5ba228f16fb9a05d3251492d)
 
+## 社区共享
+
+[Taro 交流社区——让每一次交流都被沉淀](http://taro-club.jd.com/)
+
+[Taro 物料市场——让每一个轮子产生价值](http://taro-ext.jd.com/)
 
 ## 使用案例
 
 Taro 已经投入了我们的生产环境中使用，业界也在广泛地使用 Taro 开发多端应用。
 
-[![案例](https://storage.360buyimg.com/taro-resource/user-cases.jpg?v3)](https://nervjs.github.io/taro-user-cases/)
+<a href="https://nervjs.github.io/taro-user-cases/"><img src="https://raw.githubusercontent.com/NervJS/taro-user-cases/master/user-cases.jpg" /></a>
 
 [征集更多优秀案例](https://github.com/NervJS/taro/issues/244)
 
@@ -104,7 +109,7 @@ Taro 立足于微信小程序开发，众所周知小程序的开发体验并不
 
 Taro 方案的初心就是为了打造一个多端开发的解决方案。目前 Taro 代码可以支持转换到 **微信/百度/支付宝/字节跳动小程序** 、 **H5 端** 以及 **移动端（React-Native）**。
 
-<div align="center"><img src="https://storage.360buyimg.com/taro-resource/platforms.jpg"/></div>
+<div align="center"><img src="https://storage.360buyimg.com/taro-resource/platforms.jpg?v=1"/></div>
 
 ## 更多功能
 如果你还想 Taro 支持新的特性，请使用 [FeatHub](https://feathub.com/NervJS/taro) 进行投票，我们将综合考虑投票结果等因素来确定开发的优先级。
@@ -123,9 +128,9 @@ Taro 方案的初心就是为了打造一个多端开发的解决方案。目前
 
 ## 特别鸣谢
 
-[![nanjingboy](https://avatars1.githubusercontent.com/u/1390888?s=100&v=4)](https://github.com/nanjingboy/) | [![jsNewbee](https://avatars3.githubusercontent.com/u/20449400?s=100&v=4)](https://github.com/js-newbee/)
-:---:|:---:
-[nanjingboy](https://github.com/nanjingboy/) | [jsNewbee](https://github.com/js-newbee/)
+[![nanjingboy](https://avatars1.githubusercontent.com/u/1390888?s=100&v=4)](https://github.com/nanjingboy/) | [![jsNewbee](https://avatars3.githubusercontent.com/u/20449400?s=100&v=4)](https://github.com/js-newbee/) | [![Qiyu8](https://avatars2.githubusercontent.com/u/15245051?s=100&v=4)](https://github.com/Qiyu8/)
+:---:|:---:|:---:
+[nanjingboy](https://github.com/nanjingboy/) | [jsNewbee](https://github.com/js-newbee/) |  [Qiyu8](https://github.com/Qiyu8/)
 
 ## 贡献者们
 

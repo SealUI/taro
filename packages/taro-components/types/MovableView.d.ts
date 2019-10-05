@@ -1,7 +1,7 @@
 import { ComponentType } from 'react'
 import { StandardProps, CommonEventFunction, TouchEventFunction, Omit } from './common'
 
-interface MovableAreaProps extends StandardProps {
+export interface MovableAreaProps extends StandardProps {
 
   /**
    * 当里面的movable-view设置为支持双指缩放时，设置此值可将缩放手势生效区域修改为整个movable-area
@@ -12,7 +12,7 @@ interface MovableAreaProps extends StandardProps {
 }
 
 
-interface MovableViewProps extends Omit<StandardProps, 'animation'> {
+export interface MovableViewProps extends Omit<StandardProps, 'animation'> {
 
   /**
    * movable-view的移动方向，属性值有`all`、`vertical`、`horizontal`、`none`
@@ -41,7 +41,7 @@ interface MovableViewProps extends Omit<StandardProps, 'animation'> {
   x?: number | string,
 
   /**
-   * 	定义x轴方向的偏移，如果x的值不在可移动范围内，会自动移动到可移动范围；改变x的值会触发动画c
+   * 	定义y轴方向的偏移，如果y的值不在可移动范围内，会自动移动到可移动范围；改变y的值会触发动画
    */
   y?: number | string,
 
@@ -121,7 +121,7 @@ interface MovableViewProps extends Omit<StandardProps, 'animation'> {
   onHTouchMove?: TouchEventFunction,
 
   /**
-   * 初次手指触摸后移动为横向的移动，如果catch此事件，则意味着touchmove事件也被catch
+   * 初次手指触摸后移动为纵向的移动，如果catch此事件，则意味着touchmove事件也被catch
    */
   onVTouchMove?: TouchEventFunction,
 }
